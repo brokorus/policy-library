@@ -26,6 +26,10 @@ test: ## Test constraint templates via OPA
 debug: ## Show debugging output from OPA
 	@opa eval --data=lib/ --data=validator/ --format=pretty "data.validator.gcp"
 
+.PHONY: partial
+partial: ## Show debugging output from OPA
+	@opa eval --partial --unknowns=input.name --data=lib/ --data=validator/ "data.templates.gcp.GCPNetworkRoutingConstraint.deny"
+
 .PHONY: build_templates
 build_templates: ## Inline Rego rules into constraint templates
 	@python3 scripts/inline_rego.py

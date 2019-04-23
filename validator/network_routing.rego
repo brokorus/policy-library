@@ -18,19 +18,28 @@ package templates.gcp.GCPNetworkRoutingConstraint
 
 import data.validator.gcp.lib as lib
 
+allow {
+  input.name = "Alex"
+}
+
 deny[{
 	"msg": message,
-	"details": metadata,
+	# "details": metadata,
 }] {
-	constraint := input.constraint
-	lib.get_constraint_params(constraint, params)
-	asset := input.asset
-	asset.asset_type == "compute.googleapis.com/Network"
+	message := input
+	# metadata := {
+	# 	"bob": "sam"
+	# }
 
-	mode := lib.get_default(params, "mode", "GLOBAL")
-	network := asset.resource.data
-	network.routingConfig.routingMode != mode
+	# constraint := input.constraint
+	# lib.get_constraint_params(constraint, params)
+	# asset := input.asset
+	# asset.asset_type == "compute.googleapis.com/Network"
 
-	message := sprintf("%v doesn't have %v routing.", [asset.name, mode])
-	metadata := {"resource": asset.name}
+	# mode := lib.get_default(params, "mode", "GLOBAL")
+	# network := asset.resource.data
+	# network.routingConfig.routingMode != mode
+
+	# message := sprintf("%v doesn't have %v routing.", [asset.name, mode])
+	# metadata := {"resource": asset.name}
 }
